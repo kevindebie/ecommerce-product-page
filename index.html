@@ -34,7 +34,7 @@
              x-transition:leave="transition ease-in duration-200 transform"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="fixed inset-0 transition-opacity bg-black bg-opacity-[.75] overflow-hidden z-10" aria-hidden="true"
+             class="fixed inset-0 transition-opacity bg-black bg-opacity-[.85] z-10" aria-hidden="true"
         ></div>
 
         <!-- Navigation -->
@@ -99,8 +99,8 @@
             </div>
 
             <!-- Mini cart -->
-            <div x-cloak x-show="showCart"  class="bg-white shadow-2xl absolute top-14 right-0 w-80 rounded-lg z-10">
-                <div class="p-6 border-b border-gray/30">
+            <div x-cloak x-show="showCart"  class="bg-white shadow-2xl absolute top-14 right-[-1em] w-[calc(100vw-2em)] xs:right-0 xs:w-80 rounded-lg z-10">
+                <div class="p-5 border-b border-gray/30">
                     <span class="font-bold">
                         Cart
                     </span>
@@ -114,22 +114,24 @@
 
                     <!-- Cart filled -->
                     <template x-if="cartCount > 0">
-                        <div class="flex flex-wrap gap-3 items-center">
-                            <img class="w-[50px] rounded-lg" src="./images/image-product-1-thumbnail.jpg" alt="">
-                            <div>
-                                <p class="text-grayblue leading-0 text-sm mb-1">Fall Limited Edition Sneakers</p>
-                                <p class="text-sm tracking-wider">
-                                    $<span x-text="salePrice.toFixed(2)"></span> x <span x-text="cartCount"></span>
-                                    <span class="font-bold text-black">$<span x-text="totalPrice()"></span></span>
-                                </p>
+                        <div>
+                            <div class="flex flex-wrap gap-3 items-center justify-between">
+                                <img class="w-[50px] rounded-lg" src="./images/image-product-1-thumbnail.jpg" alt="">
+                                <div class="mr-auto">
+                                    <p class="text-grayblue leading-0 text-sm mb-1">Fall Limited Edition Sneakers</p>
+                                    <p class="text-sm tracking-wider">
+                                        $<span x-text="salePrice.toFixed(2)"></span> x <span x-text="cartCount"></span>
+                                        <span class="font-bold text-black">$<span x-text="totalPrice()"></span></span>
+                                    </p>
+                                </div>
+                                <button @click="cartCount = 0">
+                                    <svg class="inline-block w-[14px] h-[16px] fill-gray/60 duration-300 hover:fill-gray">
+                                        <use href="/images/icon-delete.svg#icon-delete"></use>
+                                    </svg>
+                                </button>
                             </div>
-                            <button @click="cartCount = 0">
-                                <svg class="inline-block w-[14px] h-[16px] fill-gray/60 duration-300 hover:fill-gray">
-                                    <use href="/images/icon-delete.svg#icon-delete"></use>
-                                </svg>
-                            </button>
 
-                            <button class="inline-flex items-center justify-center gap-4 grow bg-orange text-white font-bold rounded-lg p-3 duration-300 mt-3">
+                            <button class="block w-full bg-orange text-white font-bold rounded-lg p-3 duration-300 mt-5">
                                 Checkout
                             </button>
                         </div>
@@ -145,25 +147,17 @@
     </div>
 </header>
 
-<main class="flex-1 md:pt-16">
+<main class="flex-1 md:py-16">
     <div class="md:container">
         <div class="md:grid md:grid-cols-2 md:gap-12 md:items-center xl:gap-32 xl:px-16">
 
             <!-- IMAGES -->
             <div class="lg:my-3">
-                <div class="relative cursor-pointer">
-                    <div x-show="activeSlide === 1">
-                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-1.jpg" alt="">
-                    </div>
-                    <div x-show="activeSlide === 2">
-                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-2.jpg" alt="">
-                    </div>
-                    <div x-show="activeSlide === 3">
-                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-3.jpg" alt="">
-                    </div>
-                    <div x-show="activeSlide === 4">
-                        <img @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="/images/image-product-4.jpg" alt="">
-                    </div>
+                <div class="relative cursor-pointer h-[320px] overflow-hidden xs:h-[400px] sm:h-[480px] md:h-auto">
+                    <img x-show="activeSlide === 1" @click="modelOpen =!modelOpen" class="h-full w-full object-cover md:h-auto md:w-auto md:rounded-xl" src="/images/image-product-1.jpg" alt="">
+                    <img x-show="activeSlide === 2" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-2.jpg" alt="">
+                    <img x-show="activeSlide === 3" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-3.jpg" alt="">
+                    <img x-show="activeSlide === 4" @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="/images/image-product-4.jpg" alt="">
 
                     <!-- Prev/Next arrow buttons -->
                     <div class="flex justify-between items-center w-full absolute top-1/2 -translate-y-1/2">
@@ -208,8 +202,8 @@
             </div>
 
             <!-- PRODUCT INFO -->
-            <div class="p-8 lg:p-0 lg:max-w-[80%]">
-                <span class="uppercase block text-orange font-bold f mb-4">Sneaker Company</span>
+            <div class="p-8 pb-16 lg:p-0 lg:max-w-[80%]">
+                <span class="uppercase block text-orange text-sm font-bold mb-2 tracking-wider md:mb-4 md:text-base">Sneaker Company</span>
                 <h1>Fall Limited Edition Sneakers</h1>
                 <p>These low-profile sneakers are your perfect casual wear companion. Featuring a
                 durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
@@ -229,17 +223,25 @@
                     </span>
                 </div>
 
-                <div class="flex gap-4 mt-6">
+                <div class="flex flex-wrap gap-4 mt-6 sm:max-md:flex-nowrap lg:flex-nowrap">
 
                     <!-- Quantity -->
-                    <div class="inline-flex justify-between min-w-[100px] w-[30%] items-center bg-lightgray rounded-lg py-4 px-2 font-bold">
-                        <button class="px-2 text-orange text-2xl duration-200 hover:text-black" @click="decreaseQuantity()">-</button>
+                    <div class="inline-flex justify-between basis-full min-w-[100px] w-[30%] items-center bg-lightgray rounded-lg py-3 px-2 font-bold sm:py-4">
+                        <button class="px-2" @click="decreaseQuantity()">
+                            <svg class="inline-block w-[12px] h-[4px] fill-orange duration-200 hover:fill-black">
+                                <use href="/images/icon-minus.svg#icon-minus"></use>
+                            </svg>
+                        </button>
                         <span class="bg-lightgray text-center" x-text="count"></span>
-                        <button class="px-2 text-orange text-2xl duration-200 hover:text-black" @click="increaseQuantity()">+</button>
+                        <button class="px-2 -mt-1" @click="increaseQuantity()">
+                            <svg class="inline-block w-[12px] h-[12px] fill-orange duration-200 hover:fill-black">
+                                <use href="/images/icon-plus.svg#icon-plus"></use>
+                            </svg>
+                        </button>
                     </div>
 
                     <!-- Add to cart button -->
-                    <button class="inline-flex items-center justify-center gap-4 grow bg-orange text-white font-bold rounded-lg p-4 shadow-2xl shadow-orange/50 duration-300 hover:shadow-orange/80 hover:scale-105"
+                    <button class="inline-flex items-center justify-center basis-full gap-4 grow bg-orange text-white font-bold rounded-lg p-4 shadow-2xl shadow-orange/50 duration-300 hover:shadow-orange/80 hover:scale-105"
                     @click="addToCart()">
                         <svg class="inline-block w-6 h-5 fill-white">
                             <use href="/images/icon-cart.svg#icon-cart"></use>
@@ -253,7 +255,7 @@
 
         <!-- LIGHTBOX -->
         <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto">
-            <div class="flex items-end justify-center items-center min-h-screen px-4 text-center sm:block sm:p-0">
+            <div class="flex justify-center items-start min-h-screen p-8 text-center sm:block sm:p-0">
                 <div x-cloak @click="modelOpen = false" x-show="modelOpen"
                      x-transition:enter="transition ease-out duration-300 transform"
                      x-transition:enter-start="opacity-0"
@@ -261,7 +263,7 @@
                      x-transition:leave="transition ease-in duration-200 transform"
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
-                     class="fixed inset-0 transition-opacity bg-black bg-opacity-[.75]" aria-hidden="true"
+                     class="fixed inset-0 transition-opacity bg-black bg-opacity-[.85]" aria-hidden="true"
                 ></div>
 
                 <div x-cloak x-show="modelOpen"
@@ -271,7 +273,7 @@
                      x-transition:leave="transition ease-in duration-200 transform"
                      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                      x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                     class="inline-block w-full max-w-xl my-20 text-left transition-all transform"
+                     class="inline-block w-full max-w-xl text-left transition-all transform sm:my-20"
                 >
                     <!-- Close button -->
                     <div class="flex justify-end items-center mb-2">
@@ -346,8 +348,10 @@
     </div>
 </main>
 
-<footer class="text-center py-2">
-    <p class="text-sm">Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by Kevin de Bie.</p>
+<footer class="text-center p-2">
+    <p class="text-xs md:text-sm">
+        Challenge by <a class="duration-200 hover:text-midnight" href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by Kevin de Bie.
+    </p>
 </footer>
 
 <script type="module" src="./dist/bundle.js"></script>
