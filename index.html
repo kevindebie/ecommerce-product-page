@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="./dist/output.css" rel="stylesheet">
+    <title>E-commerce product page</title>
+
+</head>
+<body class="min-h-screen flex flex-col" x-data="Product">
+<header>
+    <div class="container flex justify-between items-center flex-wrap py-3 md:border-b md:border-gray lg:py-8">
+
+        <!--Hamburger menu -->
+        <button class="mr-4 md:hidden"
+        @click="mobileMenu = true">
+            <svg class="inline-block w-[16px] h-[15px] fill-grayblue cursor-pointer duration-200 group-hover:fill-black">
+                <use href="/images/icon-menu.svg#icon-menu"></use>
+            </svg>
+        </button>
+
+        <!-- Logo -->
+        <img class="mr-auto md:mr-0" src="./images/logo.svg" alt="Logo">
+
+        <!-- Mobile menu overlay -->
+        <div x-cloak @click="mobileMenu = false" x-show="mobileMenu"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 transition-opacity bg-black bg-opacity-[.75] overflow-hidden z-10" aria-hidden="true"
+        ></div>
+
+        <!-- Navigation -->
+        <nav class="md:block md:ml-12 md:mr-auto"
+        :class="{'fixed top-0 left-0 z-10 bg-white h-screen w-[250px] p-4 pt-20': mobileMenu, 'hidden': !mobileMenu}">
+
+            <!-- Close button mobile menu -->
+            <div :class="{'absolute top-6 left-8': mobileMenu, 'hidden': !mobileMenu}">
+                <svg @click="mobileMenu = false" class="w-[24px] h-[25px] fill-grayblue cursor-pointer duration-300 hover:fill-orange">
+                    <use href="/images/icon-close.svg#icon-close"></use>
+                </svg>
+            </div>
+
+            <!-- Nav links -->
+            <ul class="md:flex">
+                <li class="mx-4 relative
+                           md:after:block md:after:absolute md:after:left-0 md:after:-bottom-4 lg:after:bottom-[calc(-100%-22px)] md:after:bg-orange md:after:w-full md:after:h-0 md:after:duration-200
+                           hover:after:h-[5px]">
+                    <a class="text-grayblue duration-200 hover:text-black" href="#"
+                       :class="{'inline-block text-lg !text-black font-bold mb-4': mobileMenu, '': !mobileMenu}">Collections</a>
+                </li>
+                <li class="mx-4 relative
+                           md:after:block md:after:absolute md:after:left-0 md:after:-bottom-4 lg:after:bottom-[calc(-100%-22px)] md:after:bg-orange md:after:w-full md:after:h-0 md:after:duration-200
+                           hover:after:h-[5px]">
+                    <a class="text-grayblue duration-200 hover:text-black" href="#"
+                       :class="{'inline-block text-lg !text-black font-bold mb-4': mobileMenu, '': !mobileMenu}">Men</a>
+                </li>
+                <li class="mx-4 relative
+                           md:after:block md:after:absolute md:after:left-0 md:after:-bottom-4 lg:after:bottom-[calc(-100%-22px)] md:after:bg-orange md:after:w-full md:after:h-0 md:after:duration-200
+                           hover:after:h-[5px]">
+                    <a class="text-grayblue duration-200 hover:text-black" href="#"
+                       :class="{'inline-block text-lg !text-black font-bold mb-4': mobileMenu, '': !mobileMenu}">Women</a>
+                </li>
+                <li class="mx-4 relative
+                           md:after:block md:after:absolute md:after:left-0 md:after:-bottom-4 lg:after:bottom-[calc(-100%-22px)] md:after:bg-orange md:after:w-full md:after:h-0 md:after:duration-200
+                           hover:after:h-[5px]">
+                    <a class="text-grayblue duration-200 hover:text-black" href="#"
+                       :class="{'inline-block text-lg !text-black font-bold mb-4': mobileMenu, '': !mobileMenu}">About</a>
+                </li>
+                <li class="mx-4 relative
+                           md:after:block md:after:absolute md:after:left-0 md:after:-bottom-4 lg:after:bottom-[calc(-100%-22px)] md:after:bg-orange md:after:w-full md:after:h-0 md:after:duration-200
+                           hover:after:h-[5px]">
+                    <a class="text-grayblue duration-200 hover:text-black" href="#"
+                       :class="{'inline-block text-lg !text-black font-bold mb-4': mobileMenu, '': !mobileMenu}">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="flex items-center gap-6 relative lg:gap-10" @mousedown.outside="showCart = false">
+
+            <!-- Cart icon -->
+            <div @click="showCart = !showCart" class="group relative">
+                <svg class="inline-block w-6 h-5 fill-grayblue cursor-pointer duration-200 group-hover:fill-black"
+                     :class="{'fill-black': showCart === true,'': showCart === false}"
+                >
+                    <use href="/images/icon-cart.svg#icon-cart"></use>
+                </svg>
+                <span x-show="cartCount > 0"
+                      class="inline-flex justify-center items-center absolute -right-1 bg-orange rounded-full w-5 h-3 font-bold text-[10px] text-white cursor-pointer">
+                    <span x-text="cartCount"></span>
+                </span>
+            </div>
+
+            <!-- Mini cart -->
+            <div x-cloak x-show="showCart"  class="bg-white shadow-2xl absolute top-14 right-0 w-80 rounded-lg z-10">
+                <div class="p-6 border-b border-gray/30">
+                    <span class="font-bold">
+                        Cart
+                    </span>
+                </div>
+
+                <div class="p-5">
+                    <!-- Cart empty -->
+                    <template x-if="cartCount === 0">
+                        <p class="text-center py-10 font-bold">Your cart is empty.</p>
+                    </template>
+
+                    <!-- Cart filled -->
+                    <template x-if="cartCount > 0">
+                        <div class="flex flex-wrap gap-3 items-center">
+                            <img class="w-[50px] rounded-lg" src="./images/image-product-1-thumbnail.jpg" alt="">
+                            <div>
+                                <p class="text-grayblue leading-0 text-sm mb-1">Fall Limited Edition Sneakers</p>
+                                <p class="text-sm tracking-wider">
+                                    $<span x-text="salePrice.toFixed(2)"></span> x <span x-text="cartCount"></span>
+                                    <span class="font-bold text-black">$<span x-text="totalPrice()"></span></span>
+                                </p>
+                            </div>
+                            <button @click="cartCount = 0">
+                                <svg class="inline-block w-[14px] h-[16px] fill-gray/60 duration-300 hover:fill-gray">
+                                    <use href="/images/icon-delete.svg#icon-delete"></use>
+                                </svg>
+                            </button>
+
+                            <button class="inline-flex items-center justify-center gap-4 grow bg-orange text-white font-bold rounded-lg p-3 duration-300 mt-3">
+                                Checkout
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- User avatar -->
+            <img class="rounded-full w-[30px] h-[30px] duration-300 border-2 border-transparent cursor-pointer hover:border-orange lg:w-[50px] lg:h-[50px]"
+                 src="./images/image-avatar.png" alt="User Image">
+
+        </div>
+    </div>
+</header>
+
+<main class="flex-1 md:pt-16">
+    <div class="md:container">
+        <div class="md:grid md:grid-cols-2 md:gap-12 md:items-center xl:gap-32 xl:px-16">
+
+            <!-- IMAGES -->
+            <div class="lg:my-3">
+                <div class="relative cursor-pointer">
+                    <div x-show="activeSlide === 1">
+                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-1.jpg" alt="">
+                    </div>
+                    <div x-show="activeSlide === 2">
+                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-2.jpg" alt="">
+                    </div>
+                    <div x-show="activeSlide === 3">
+                        <img @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-3.jpg" alt="">
+                    </div>
+                    <div x-show="activeSlide === 4">
+                        <img @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="/images/image-product-4.jpg" alt="">
+                    </div>
+
+                    <!-- Prev/Next arrow buttons -->
+                    <div class="flex justify-between items-center w-full absolute top-1/2 -translate-y-1/2">
+                        <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full ml-4 cursor-pointer"
+                                @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
+                            <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
+                                <use href="/images/icon-previous.svg#icon-previous"></use>
+                            </svg>
+                        </button>
+                        <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full mr-4 cursor-pointer"
+                                @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
+                            <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
+                                <use href="/images/icon-next.svg#icon-next"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thumbnail images -->
+                <div class="hidden md:grid md:grid-cols-4 md:gap-6 md:mt-6">
+                    <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 1,'': activeSlide !== 1}">
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-1-thumbnail.jpg" alt=""
+                             :class="{'opacity-60': activeSlide === 1,'': activeSlide !== 1}"
+                             @click="activeSlide = 1">
+                    </div>
+                    <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 2,'': activeSlide !== 2}">
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-2-thumbnail.jpg" alt=""
+                             :class="{'opacity-60': activeSlide === 2,'': activeSlide !== 2}"
+                             @click="activeSlide = 2">
+                    </div>
+                    <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 3,'': activeSlide !== 3}">
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-3-thumbnail.jpg" alt=""
+                             :class="{'opacity-60': activeSlide === 3,'': activeSlide !== 3}"
+                             @click="activeSlide = 3">
+                    </div>
+                    <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 4,'': activeSlide !== 4}">
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-4-thumbnail.jpg" alt=""
+                             :class="{'opacity-60': activeSlide === 4,'': activeSlide !== 4}"
+                             @click="activeSlide = 4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT INFO -->
+            <div class="p-8 lg:p-0 lg:max-w-[80%]">
+                <span class="uppercase block text-orange font-bold f mb-4">Sneaker Company</span>
+                <h1>Fall Limited Edition Sneakers</h1>
+                <p>These low-profile sneakers are your perfect casual wear companion. Featuring a
+                durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
+
+                <!-- Price -->
+                <div class="flex items-center justify-between mt-6 lg:flex-wrap">
+                    <div class="inline-flex items-center gap-4 lg:basis-full">
+                        <span class="text-2xl font-bold">
+                            $ <span x-text="salePrice.toFixed(2)"></span>
+                        </span>
+                        <span class="bg-lightorange text-orange py-1 px-2 rounded-lg font-bold text-sm">
+                            <span x-text="discountPercentage()">%</span>
+                        </span>
+                    </div>
+                    <span class="line-through text-gray font-bold lg:mt-2">
+                        $ <span x-text="productPrice.toFixed(2)"></span>
+                    </span>
+                </div>
+
+                <div class="flex gap-4 mt-6">
+
+                    <!-- Quantity -->
+                    <div class="inline-flex justify-between min-w-[100px] w-[30%] items-center bg-lightgray rounded-lg py-4 px-2 font-bold">
+                        <button class="px-2 text-orange text-2xl duration-200 hover:text-black" @click="decreaseQuantity()">-</button>
+                        <span class="bg-lightgray text-center" x-text="count"></span>
+                        <button class="px-2 text-orange text-2xl duration-200 hover:text-black" @click="increaseQuantity()">+</button>
+                    </div>
+
+                    <!-- Add to cart button -->
+                    <button class="inline-flex items-center justify-center gap-4 grow bg-orange text-white font-bold rounded-lg p-4 shadow-2xl shadow-orange/50 duration-300 hover:shadow-orange/80 hover:scale-105"
+                    @click="addToCart()">
+                        <svg class="inline-block w-6 h-5 fill-white">
+                            <use href="/images/icon-cart.svg#icon-cart"></use>
+                        </svg>
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LIGHTBOX -->
+        <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-end justify-center items-center min-h-screen px-4 text-center sm:block sm:p-0">
+                <div x-cloak @click="modelOpen = false" x-show="modelOpen"
+                     x-transition:enter="transition ease-out duration-300 transform"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition ease-in duration-200 transform"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     class="fixed inset-0 transition-opacity bg-black bg-opacity-[.75]" aria-hidden="true"
+                ></div>
+
+                <div x-cloak x-show="modelOpen"
+                     x-transition:enter="transition ease-out duration-300 transform"
+                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                     x-transition:leave="transition ease-in duration-200 transform"
+                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                     class="inline-block w-full max-w-xl my-20 text-left transition-all transform"
+                >
+                    <!-- Close button -->
+                    <div class="flex justify-end items-center mb-2">
+                        <svg @click="modelOpen = false" class="w-[24px] h-[25px] fill-white cursor-pointer duration-300 hover:fill-orange">
+                            <use href="/images/icon-close.svg#icon-close"></use>
+                        </svg>
+                    </div>
+                    <div class="relative">
+                        <!-- Images -->
+                        <div x-show="activeSlide === 1">
+                            <img class="rounded-xl" src="/images/image-product-1.jpg" alt=""
+                                 @click="openLightbox();toSlide(1)">
+                        </div>
+                        <div x-show="activeSlide === 2">
+                            <img class="rounded-xl" src="/images/image-product-2.jpg" alt="">
+                        </div>
+                        <div x-show="activeSlide === 3">
+                            <img class="rounded-xl" src="/images/image-product-3.jpg" alt="">
+                        </div>
+                        <div x-show="activeSlide === 4">
+                            <img class="rounded-xl" src="/images/image-product-4.jpg" alt="">
+                        </div>
+
+                        <!-- Prev/Next arrow buttons -->
+                        <div class="flex justify-between items-center w-full absolute top-1/2 -translate-y-1/2">
+                            <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full -ml-6 cursor-pointer duration-300 hover:text-orange"
+                                    @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
+                                <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
+                                    <use href="/images/icon-previous.svg#icon-previous"></use>
+                                </svg>
+                            </button>
+                            <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full -mr-6 cursor-pointer duration-300 hover:text-orange"
+                                    @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
+                                <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
+                                    <use href="/images/icon-next.svg#icon-next"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnail images -->
+                    <div class="grid grid-cols-4 gap-6 mt-6">
+                        <div class="relative rounded-xl overflow-hidden bg-white relative"
+                             :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 1,'': activeSlide !== 1}">
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-1-thumbnail.jpg" alt=""
+                                 :class="{'opacity-60': activeSlide === 1,'': activeSlide !== 1}"
+                                 @click="activeSlide = 1">
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-white relative"
+                             :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 2,'': activeSlide !== 2}">
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-2-thumbnail.jpg" alt=""
+                                 :class="{'opacity-60': activeSlide === 2,'': activeSlide !== 2}"
+                                 @click="activeSlide = 2">
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-white relative"
+                             :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 3,'': activeSlide !== 3}">
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-3-thumbnail.jpg" alt=""
+                                 :class="{'opacity-60': activeSlide === 3,'': activeSlide !== 3}"
+                                 @click="activeSlide = 3">
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-white relative"
+                             :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 4,'': activeSlide !== 4}">
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-4-thumbnail.jpg" alt=""
+                                 :class="{'opacity-60': activeSlide === 4,'': activeSlide !== 4}"
+                                 @click="activeSlide = 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="text-center py-2">
+    <p class="text-sm">Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by Kevin de Bie.</p>
+</footer>
+
+<script type="module" src="./dist/bundle.js"></script>
+</body>
+</html>
