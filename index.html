@@ -13,7 +13,7 @@
 </head>
 <body class="min-h-screen flex flex-col" x-data="Product">
 <header>
-    <div class="container flex justify-between items-center flex-wrap py-3 md:border-b md:border-gray lg:py-8">
+    <div class="container flex justify-between items-center flex-wrap py-4 md:border-b md:border-gray lg:py-8">
 
         <!--Hamburger menu -->
         <button class="mr-4 md:hidden"
@@ -39,7 +39,7 @@
 
         <!-- Navigation -->
         <nav class="md:block md:ml-12 md:mr-auto"
-        :class="{'fixed top-0 left-0 z-10 bg-white h-screen w-[250px] p-4 pt-20': mobileMenu, 'hidden': !mobileMenu}">
+        :class="{'fixed top-0 left-0 z-10 bg-white h-screen w-[250px] p-4 pt-20 duration-500': mobileMenu, 'absolute w-0 -left-[100%] md:relative md:w-auto md:left-[unset]': !mobileMenu}">
 
             <!-- Close button mobile menu -->
             <div :class="{'absolute top-6 left-8': mobileMenu, 'hidden': !mobileMenu}">
@@ -160,20 +160,18 @@
                     <img x-show="activeSlide === 4" @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="/images/image-product-4.jpg" alt="">
 
                     <!-- Prev/Next arrow buttons -->
-                    <div class="flex justify-between items-center w-full absolute top-1/2 -translate-y-1/2">
-                        <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full ml-4 cursor-pointer"
-                                @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
-                            <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
-                                <use href="/images/icon-previous.svg#icon-previous"></use>
-                            </svg>
-                        </button>
-                        <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full mr-4 cursor-pointer"
-                                @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
-                            <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
-                                <use href="/images/icon-next.svg#icon-next"></use>
-                            </svg>
-                        </button>
-                    </div>
+                    <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full ml-4 cursor-pointer absolute top-1/2 -translate-y-1/2 left-2"
+                            @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
+                        <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
+                            <use href="/images/icon-previous.svg#icon-previous"></use>
+                        </svg>
+                    </button>
+                    <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full mr-4 cursor-pointer absolute top-1/2 -translate-y-1/2 right-2"
+                            @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
+                        <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
+                            <use href="/images/icon-next.svg#icon-next"></use>
+                        </svg>
+                    </button>
                 </div>
 
                 <!-- Thumbnail images -->
@@ -227,14 +225,14 @@
 
                     <!-- Quantity -->
                     <div class="inline-flex justify-between basis-full min-w-[100px] w-[30%] items-center bg-lightgray rounded-lg py-3 px-2 font-bold sm:py-4">
-                        <button class="px-2" @click="decreaseQuantity()">
-                            <svg class="inline-block w-[12px] h-[4px] fill-orange duration-200 hover:fill-black">
+                        <button class="group px-2" @click="decreaseQuantity()">
+                            <svg class="inline-block w-[12px] h-[4px] fill-orange duration-200 group-hover:fill-black">
                                 <use href="/images/icon-minus.svg#icon-minus"></use>
                             </svg>
                         </button>
                         <span class="bg-lightgray text-center" x-text="count"></span>
-                        <button class="px-2 -mt-1" @click="increaseQuantity()">
-                            <svg class="inline-block w-[12px] h-[12px] fill-orange duration-200 hover:fill-black">
+                        <button class="group px-2 -mt-1" @click="increaseQuantity()">
+                            <svg class="inline-block w-[12px] h-[12px] fill-orange duration-200 group-hover:fill-black">
                                 <use href="/images/icon-plus.svg#icon-plus"></use>
                             </svg>
                         </button>
