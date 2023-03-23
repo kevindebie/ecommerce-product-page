@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
         <button class="mr-4 md:hidden"
         @click="mobileMenu = true">
             <svg class="inline-block w-[16px] h-[15px] fill-grayblue cursor-pointer duration-200 group-hover:fill-black">
-                <use href="/images/icon-menu.svg#icon-menu"></use>
+                <use href="./images/icon-menu.svg#icon-menu"></use>
             </svg>
         </button>
 
@@ -44,9 +44,9 @@
             <!-- Close button mobile menu -->
             <div :class="{'absolute top-6 left-8': mobileMenu, 'hidden': !mobileMenu}">
                 <svg @click="mobileMenu = false" class="w-[24px] h-[25px] fill-grayblue cursor-pointer duration-300 hover:fill-orange">
-                    <use href="/images/icon-close.svg#icon-close"></use>
+                    <use href="./images/icon-close.svg#icon-close"></use>
                 </svg>
-            </div>
+            </div>.
 
             <!-- Nav links -->
             <ul class="md:flex">
@@ -90,7 +90,7 @@
                 <svg class="inline-block w-6 h-5 fill-grayblue cursor-pointer duration-200 group-hover:fill-black"
                      :class="{'fill-black': showCart === true,'': showCart === false}"
                 >
-                    <use href="/images/icon-cart.svg#icon-cart"></use>
+                    <use href="./images/icon-cart.svg#icon-cart"></use>
                 </svg>
                 <span x-show="cartCount > 0"
                       class="inline-flex justify-center items-center absolute -right-1 bg-orange rounded-full w-5 h-3 font-bold text-[10px] text-white cursor-pointer">
@@ -126,7 +126,7 @@
                                 </div>
                                 <button @click="cartCount = 0">
                                     <svg class="inline-block w-[14px] h-[16px] fill-gray/60 duration-300 hover:fill-gray">
-                                        <use href="/images/icon-delete.svg#icon-delete"></use>
+                                        <use href="./images/icon-delete.svg#icon-delete"></use>
                                     </svg>
                                 </button>
                             </div>
@@ -154,22 +154,22 @@
             <!-- IMAGES -->
             <div class="lg:my-3">
                 <div class="relative cursor-pointer h-[320px] overflow-hidden xs:h-[400px] sm:h-[480px] md:h-auto">
-                    <img x-show="activeSlide === 1" @click="modelOpen =!modelOpen" class="h-full w-full object-cover md:h-auto md:w-auto md:rounded-xl" src="/images/image-product-1.jpg" alt="">
-                    <img x-show="activeSlide === 2" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-2.jpg" alt="">
-                    <img x-show="activeSlide === 3" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="/images/image-product-3.jpg" alt="">
-                    <img x-show="activeSlide === 4" @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="/images/image-product-4.jpg" alt="">
+                    <img x-show="activeSlide === 1" @click="modelOpen =!modelOpen" class="h-full w-full object-cover md:h-auto md:w-auto md:rounded-xl" src="./images/image-product-1.jpg" alt="">
+                    <img x-show="activeSlide === 2" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="./images/image-product-2.jpg" alt="">
+                    <img x-show="activeSlide === 3" @click="modelOpen =!modelOpen" class="md:rounded-xl" src="./images/image-product-3.jpg" alt="">
+                    <img x-show="activeSlide === 4" @click="modelOpen =!modelOpen" class="lmd:rounded-xl" src="./images/image-product-4.jpg" alt="">
 
                     <!-- Prev/Next arrow buttons -->
                     <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full ml-4 cursor-pointer absolute top-1/2 -translate-y-1/2 left-2"
                             @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
                         <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
-                            <use href="/images/icon-previous.svg#icon-previous"></use>
+                            <use href="./images/icon-previous.svg#icon-previous"></use>
                         </svg>
                     </button>
                     <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full mr-4 cursor-pointer absolute top-1/2 -translate-y-1/2 right-2"
                             @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
                         <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
-                            <use href="/images/icon-next.svg#icon-next"></use>
+                            <use href="./images/icon-next.svg#icon-next"></use>
                         </svg>
                     </button>
                 </div>
@@ -177,22 +177,22 @@
                 <!-- Thumbnail images -->
                 <div class="hidden md:grid md:grid-cols-4 md:gap-6 md:mt-6">
                     <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 1,'': activeSlide !== 1}">
-                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-1-thumbnail.jpg" alt=""
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-1-thumbnail.jpg" alt=""
                              :class="{'opacity-60': activeSlide === 1,'': activeSlide !== 1}"
                              @click="activeSlide = 1">
                     </div>
                     <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 2,'': activeSlide !== 2}">
-                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-2-thumbnail.jpg" alt=""
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-2-thumbnail.jpg" alt=""
                              :class="{'opacity-60': activeSlide === 2,'': activeSlide !== 2}"
                              @click="activeSlide = 2">
                     </div>
                     <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 3,'': activeSlide !== 3}">
-                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-3-thumbnail.jpg" alt=""
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-3-thumbnail.jpg" alt=""
                              :class="{'opacity-60': activeSlide === 3,'': activeSlide !== 3}"
                              @click="activeSlide = 3">
                     </div>
                     <div class="rounded-xl border-2 border-transparent overflow-hidden" :class="{'!border-orange': activeSlide === 4,'': activeSlide !== 4}">
-                        <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-4-thumbnail.jpg" alt=""
+                        <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-4-thumbnail.jpg" alt=""
                              :class="{'opacity-60': activeSlide === 4,'': activeSlide !== 4}"
                              @click="activeSlide = 4">
                     </div>
@@ -224,16 +224,16 @@
                 <div class="flex flex-wrap gap-4 mt-6 sm:max-md:flex-nowrap lg:flex-nowrap">
 
                     <!-- Quantity -->
-                    <div class="inline-flex justify-between basis-full min-w-[100px] w-[30%] items-center bg-lightgray rounded-lg py-3 px-2 font-bold sm:py-4">
+                    <div class="inline-flex justify-between basis-full min-w-[35%] items-center bg-lightgray rounded-lg py-3 px-2 font-bold sm:py-4 sm:max-md:basis-0 lg:basis-0">
                         <button class="group px-2" @click="decreaseQuantity()">
                             <svg class="inline-block w-[12px] h-[4px] fill-orange duration-200 group-hover:fill-black">
-                                <use href="/images/icon-minus.svg#icon-minus"></use>
+                                <use href="./images/icon-minus.svg#icon-minus"></use>
                             </svg>
                         </button>
                         <span class="bg-lightgray text-center" x-text="count"></span>
                         <button class="group px-2 -mt-1" @click="increaseQuantity()">
                             <svg class="inline-block w-[12px] h-[12px] fill-orange duration-200 group-hover:fill-black">
-                                <use href="/images/icon-plus.svg#icon-plus"></use>
+                                <use href="./images/icon-plus.svg#icon-plus"></use>
                             </svg>
                         </button>
                     </div>
@@ -242,7 +242,7 @@
                     <button class="inline-flex items-center justify-center basis-full gap-4 grow bg-orange text-white font-bold rounded-lg p-4 shadow-2xl shadow-orange/50 duration-300 hover:shadow-orange/80 hover:scale-105"
                     @click="addToCart()">
                         <svg class="inline-block w-6 h-5 fill-white">
-                            <use href="/images/icon-cart.svg#icon-cart"></use>
+                            <use href="./images/icon-cart.svg#icon-cart"></use>
                         </svg>
                         Add to cart
                     </button>
@@ -276,23 +276,23 @@
                     <!-- Close button -->
                     <div class="flex justify-end items-center mb-2">
                         <svg @click="modelOpen = false" class="w-[24px] h-[25px] fill-white cursor-pointer duration-300 hover:fill-orange">
-                            <use href="/images/icon-close.svg#icon-close"></use>
+                            <use href="./images/icon-close.svg#icon-close"></use>
                         </svg>
                     </div>
                     <div class="relative">
                         <!-- Images -->
                         <div x-show="activeSlide === 1">
-                            <img class="rounded-xl" src="/images/image-product-1.jpg" alt=""
+                            <img class="rounded-xl" src="./images/image-product-1.jpg" alt=""
                                  @click="openLightbox();toSlide(1)">
                         </div>
                         <div x-show="activeSlide === 2">
-                            <img class="rounded-xl" src="/images/image-product-2.jpg" alt="">
+                            <img class="rounded-xl" src="./images/image-product-2.jpg" alt="">
                         </div>
                         <div x-show="activeSlide === 3">
-                            <img class="rounded-xl" src="/images/image-product-3.jpg" alt="">
+                            <img class="rounded-xl" src="./images/image-product-3.jpg" alt="">
                         </div>
                         <div x-show="activeSlide === 4">
-                            <img class="rounded-xl" src="/images/image-product-4.jpg" alt="">
+                            <img class="rounded-xl" src="./images/image-product-4.jpg" alt="">
                         </div>
 
                         <!-- Prev/Next arrow buttons -->
@@ -300,13 +300,13 @@
                             <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full -ml-6 cursor-pointer duration-300 hover:text-orange"
                                     @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
                                 <svg class="inline-block w-[12px] h-[18px] stroke-midnight mr-1 duration-300 group-hover:stroke-orange">
-                                    <use href="/images/icon-previous.svg#icon-previous"></use>
+                                    <use href="./images/icon-previous.svg#icon-previous"></use>
                                 </svg>
                             </button>
                             <button class="group inline-flex justify-center items-center bg-white w-[50px] h-[50px] rounded-full -mr-6 cursor-pointer duration-300 hover:text-orange"
                                     @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
                                 <svg class="inline-block w-[12px] h-[18px] stroke-midnight ml-1 duration-300 group-hover:stroke-orange">
-                                    <use href="/images/icon-next.svg#icon-next"></use>
+                                    <use href="./images/icon-next.svg#icon-next"></use>
                                 </svg>
                             </button>
                         </div>
@@ -316,25 +316,25 @@
                     <div class="grid grid-cols-4 gap-6 mt-6">
                         <div class="relative rounded-xl overflow-hidden bg-white relative"
                              :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 1,'': activeSlide !== 1}">
-                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-1-thumbnail.jpg" alt=""
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-1-thumbnail.jpg" alt=""
                                  :class="{'opacity-60': activeSlide === 1,'': activeSlide !== 1}"
                                  @click="activeSlide = 1">
                         </div>
                         <div class="rounded-xl overflow-hidden bg-white relative"
                              :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 2,'': activeSlide !== 2}">
-                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-2-thumbnail.jpg" alt=""
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-2-thumbnail.jpg" alt=""
                                  :class="{'opacity-60': activeSlide === 2,'': activeSlide !== 2}"
                                  @click="activeSlide = 2">
                         </div>
                         <div class="rounded-xl overflow-hidden bg-white relative"
                              :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 3,'': activeSlide !== 3}">
-                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-3-thumbnail.jpg" alt=""
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-3-thumbnail.jpg" alt=""
                                  :class="{'opacity-60': activeSlide === 3,'': activeSlide !== 3}"
                                  @click="activeSlide = 3">
                         </div>
                         <div class="rounded-xl overflow-hidden bg-white relative"
                              :class="{'after:block after:absolute after:top-0 after:left-0 after:w-full after:h-full after:border-2 after:border-orange after:rounded-xl': activeSlide === 4,'': activeSlide !== 4}">
-                            <img class="cursor-pointer duration-300 hover:opacity-60" src="/images/image-product-4-thumbnail.jpg" alt=""
+                            <img class="cursor-pointer duration-300 hover:opacity-60" src="./images/image-product-4-thumbnail.jpg" alt=""
                                  :class="{'opacity-60': activeSlide === 4,'': activeSlide !== 4}"
                                  @click="activeSlide = 4">
                         </div>
