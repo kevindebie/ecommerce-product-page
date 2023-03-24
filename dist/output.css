@@ -1565,6 +1565,11 @@ p {
     left: 0px;
   }
 
+  .md\:after\:-bottom-5::after {
+    content: var(--tw-content);
+    bottom: -1.25rem;
+  }
+
   .md\:after\:block::after {
     content: var(--tw-content);
     display: block;
@@ -1643,19 +1648,14 @@ p {
     padding-bottom: 2rem;
   }
 
-  .lg\:after\:bottom-\[calc\(-100\%-22px\)\]::after {
-    content: var(--tw-content);
-    bottom: calc(-100% - 22px);
-  }
-
-  .lg\:after\:bottom-\[calc\(-100\%-12px\)\]::after {
-    content: var(--tw-content);
-    bottom: calc(-100% - 12px);
-  }
-
   .lg\:after\:bottom-\[calc\(-100\%-10px\)\]::after {
     content: var(--tw-content);
     bottom: calc(-100% - 10px);
+  }
+
+  .lg\:after\:bottom-\[calc\(-100\%-22px\)\]::after {
+    content: var(--tw-content);
+    bottom: calc(-100% - 22px);
   }
 }
 
